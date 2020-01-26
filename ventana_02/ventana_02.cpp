@@ -3,7 +3,7 @@
 #include <cmath>
 
 // Callback for window events (required to handle window events such as click or closing the window)
-LRESULT WINAPI						WndProc					(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+LRESULT WINAPI				WndProc					(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)	{
 	switch(uMsg) {
 	case WM_DESTROY:	// Catch the window's DESTROY message which is posted to the queue when the window is closed.
 		PostQuitMessage(0);	// Signal the WM_QUIT message.
@@ -26,6 +26,7 @@ struct SCoord {
 	}
 };
 
+#pragma pack(push, 1)
 // Use this structure to simplify the use of color values.
 struct SColor {
 	uint8_t						b;
@@ -38,6 +39,7 @@ struct SColor {
 	SColor						operator *				(double scalar)		const	{ return SColor{(uint8_t)(b * scalar), (uint8_t)(g * scalar), (uint8_t)(r * scalar)}; }
 
 };
+#pragma pack(pop)
 
 // Use this to convert from our color format to MS Windows' format.
 COLORREF					toColorRef				(SColor color)				{ return ((int)color.r) | (((int)color.g) << 8) | (((int)color.b) << 16); }

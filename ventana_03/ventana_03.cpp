@@ -2,7 +2,7 @@
 #include "framework.h"
 
 // Callback for window events (required to handle window events such as click or closing the window)
-LRESULT WINAPI						WndProc					(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+LRESULT WINAPI				WndProc					(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)								{
 	switch(uMsg) {
 	case WM_DESTROY:	// Catch the window's DESTROY message which is posted to the queue when the window is closed.
 		PostQuitMessage(0);	// Signal the WM_QUIT message.
@@ -17,7 +17,7 @@ COLORREF					toColorRef				(SColor color)																		{ return ((int)color.
 void						setPixel				(SColor * target, SCoord sizeTarget, SCoord position, SColor color)					{
 	if( position.x >= 0 && position.x < sizeTarget.x
 	 && position.y >= 0 && position.y < sizeTarget.y
-	)
+	) // Make sure the pixel is inside the array boundaries before assigning in order to prevent a memory access violation.
 		target[position.x + sizeTarget.x * position.y]	= color;
 }
 
